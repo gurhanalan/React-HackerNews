@@ -33,7 +33,6 @@ const AppProvider = ({ children }) => {
                 type: SET_STORIES,
                 payload: { hits: data.hits, nbPages: data.nbPages },
             });
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
@@ -41,13 +40,16 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         fetchStories(`${API_END_POINT}query=${state.query}&page=${state.page}`);
-    }, [state.query]);
+    }, [state.query, state.page]);
 
     const removeStory = (id) => {
         dispatch({ type: REMOVE_STORY, payload: id });
     };
+    const handleSearch = (query) => {
+        dispatch({ type: HANDLE_SEARCH, payload: query });
+    };
     return (
-        <AppContext.Provider value={{ ...state, removeStory }}>
+        <AppContext.Provider value={{ ...state, removeStory, handleSearch }}>
             {children}
         </AppContext.Provider>
     );
