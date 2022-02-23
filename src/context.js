@@ -48,8 +48,15 @@ const AppProvider = ({ children }) => {
     const handleSearch = (query) => {
         dispatch({ type: HANDLE_SEARCH, payload: query });
     };
+
+    const handlePage = (value) => {
+        dispatch({ type: HANDLE_PAGE, payload: value });
+        // console.log(value);
+    };
     return (
-        <AppContext.Provider value={{ ...state, removeStory, handleSearch }}>
+        <AppContext.Provider
+            value={{ ...state, removeStory, handleSearch, handlePage }}
+        >
             {children}
         </AppContext.Provider>
     );
